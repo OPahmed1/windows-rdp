@@ -14,10 +14,9 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
-      - name: Create RDP User with Random Strong Password
-        id: create_user
+      - name: Create RDP User with Secure Random Password
         run: |
-          # Generate random strong password (min 12 chars)
+          # Generate strong password with Uppercase, Lowercase, Number, Special Char
           Add-Type -AssemblyName System.Web
           $password = [System.Web.Security.Membership]::GeneratePassword(14,3)
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
